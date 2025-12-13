@@ -181,30 +181,71 @@ def print_summary(results):
 
 
 def main():
-    """Main function to extract slope rasters."""
+    """Main function to extract slope rasters for all polygon sizes."""
     # Paths
     raster_path = "Risikofaktoren/Slope/Input/slope_10m_UTM.tif"
-    polygon_shapefile_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output/Erdrutsche213_with_random_5x5km.shp"
-    output_dir = "Risikofaktoren/Slope/Output"
+    base_polygon_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output"
+    base_output_dir = "Risikofaktoren/Slope/Output"
     
-    # Load data
-    raster, gdf = load_data(raster_path, polygon_shapefile_path)
+    # Define polygon sizes to process
+    polygon_sizes = ["5x5km", "2x2km", "1x1km", "500x500m"]
     
-    # Extract rasters
-    results = extract_all_slope_rasters(raster, gdf, output_dir, max_nodata_pct=5.0)
+    all_results = {}
     
-    # Print summary
-    print_summary(results)
+    for size_name in polygon_sizes:
+        print("\n" + "=" * 70)
+        print(f"PROCESSING {size_name} POLYGONS")
+        print("=" * 70)
+        
+        polygon_shapefile_path = f"{base_polygon_path}/Erdrutsche213_with_random_{size_name}.shp"
+        output_dir = f"{base_output_dir}/{size_name}"
+        
+        # Check if shapefile exists
+        if not Path(polygon_shapefile_path).exists():
+            print(f"Shapefile not found: {polygon_shapefile_path}")
+            print("Skipping this size...")
+            continue
+        
+        # Create output directory
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+        
+        # Load data
+        raster, gdf = load_data(raster_path, polygon_shapefile_path)
+        
+        # Extract rasters
+        results = extract_all_slope_rasters(raster, gdf, output_dir, max_nodata_pct=5.0)
+        
+        # Print summary
+        print_summary(results)
+        
+        # Save results metadata
+        metadata_path = Path(output_dir) / "extraction_results.json"
+        with open(metadata_path, 'w') as f:
+            json.dump(results, f, indent=2)
+        print(f"\nMetadata saved to: {metadata_path}")
+        
+        # Close raster
+        raster.close()
+        
+        # Store results
+        all_results[size_name] = {
+            'valid': results['valid'],
+            'total': results['total'],
+            'excluded_nodata': results['excluded_nodata'],
+            'landslides': sum(1 for r in results['valid_uuids'] if r['category'] == 'landslide'),
+            'non_landslides': sum(1 for r in results['valid_uuids'] if r['category'] == 'no_landslide')
+        }
     
-    # Save results metadata
-    metadata_path = Path(output_dir) / "extraction_results.json"
-    with open(metadata_path, 'w') as f:
-        json.dump(results, f, indent=2)
-    print(f"\nMetadata saved to: {metadata_path}")
+    # Print overall summary
+    print("\n" + "=" * 70)
+    print("OVERALL EXTRACTION SUMMARY")
+    print("=" * 70)
+    for size_name, stats in all_results.items():
+        print(f"\n{size_name}:")
+        print(f"  Valid rasters: {stats['valid']}/{stats['total']}")
+        print(f"  Landslides: {stats['landslides']}, Non-landslides: {stats['non_landslides']}")
     
-    # Close raster
-    raster.close()
-    print("\nExtraction complete!")
+    print("\nAll extractions complete!")
 
 
 if __name__ == "__main__":

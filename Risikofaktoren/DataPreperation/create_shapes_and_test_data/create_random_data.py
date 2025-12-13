@@ -3,13 +3,18 @@ Landslide Data Processing Script
 =================================
 This script performs three main tasks:
 1. Generates random negative samples (non-landslide locations)
-2. Creates 5x5 km square polygons around all points
+2. Creates square polygons of multiple sizes around all points:
+   - 5x5 km, 2x2 km, 1x1 km, 500x500 m
 3. Visualizes the results with different colors for each movement type
 
 Input: Erdrutsche213.shp (landslide point data)
 Output: 
   - Erdrutsche213_with_random.shp (points with added random data)
   - Erdrutsche213_with_random_5x5km.shp (5x5 km polygons)
+  - Erdrutsche213_with_random_2x2km.shp (2x2 km polygons)
+  - Erdrutsche213_with_random_1x1km.shp (1x1 km polygons)
+  - Erdrutsche213_with_random_500x500m.shp (500x500 m polygons)
+  - CSV files for points and all polygon sizes
 """
 
 import geopandas as gpd
@@ -122,39 +127,57 @@ gdf_combined.to_file(output_points)
 print(f"\n✓ Saved combined point shapefile to: {output_points}")
 
 # ============================================================================
-# STEP 2: CREATE 5x5 KM POLYGONS FOR ALL POINTS
+# STEP 2: CREATE POLYGONS OF MULTIPLE SIZES FOR ALL POINTS
 # ============================================================================
 
 print("\n" + "=" * 70)
-print("STEP 2: CREATING 5x5 KM POLYGONS FOR ALL POINTS")
+print("STEP 2: CREATING POLYGONS OF MULTIPLE SIZES FOR ALL POINTS")
 print("=" * 70)
 
-# Reproject to UTM for metric calculations
-gdf_utm = gdf_combined.to_crs('EPSG:32632')
-
-# Create square polygons (2500m from center = 5km total)
-buffer_distance = 2500  # meters
+# Define polygon sizes: (name, buffer_distance, expected_area_km2)
+polygon_sizes = [
+    ("5x5km", 2500, 25.0),      # 5km x 5km = 25 km²
+    ("2x2km", 1000, 4.0),       # 2km x 2km = 4 km²
+    ("1x1km", 500, 1.0),        # 1km x 1km = 1 km²
+    ("500x500m", 250, 0.25),    # 500m x 500m = 0.25 km²
+]
 
 def create_square(point, distance):
     """Create a square polygon around a point"""
     x, y = point.x, point.y
     return box(x - distance, y - distance, x + distance, y + distance)
 
-gdf_utm['geometry'] = gdf_utm.geometry.apply(lambda pt: create_square(pt, buffer_distance))
+# Dictionary to store all polygon GeoDataFrames for later use
+all_polygon_gdfs = {}
 
-# Convert back to original CRS
-gdf_polygons = gdf_utm.to_crs('EPSG:4326')
+for size_name, buffer_distance, expected_area in polygon_sizes:
+    print(f"\n--- Creating {size_name} polygons ---")
+    
+    # Reproject to UTM for metric calculations
+    gdf_utm = gdf_combined.to_crs('EPSG:32632')
+    
+    # Create square polygons
+    gdf_utm['geometry'] = gdf_utm.geometry.apply(lambda pt: create_square(pt, buffer_distance))
+    
+    # Convert back to original CRS
+    gdf_polygons = gdf_utm.to_crs('EPSG:4326')
+    
+    # Verify areas
+    gdf_utm_temp = gdf_polygons.to_crs('EPSG:32632')
+    areas_km2 = gdf_utm_temp.geometry.area / 1_000_000
+    print(f"Created {len(gdf_polygons)} polygons")
+    print(f"Area verification: {areas_km2.mean():.4f} km² (expected: {expected_area} km²)")
+    
+    # Save polygon shapefile
+    output_polygons = f"Risikofaktoren\\DataPreperation\\create_shapes_and_test_data\\output\\Erdrutsche213_with_random_{size_name}.shp"
+    gdf_polygons.to_file(output_polygons)
+    print(f"✓ Saved polygon shapefile to: {output_polygons}")
+    
+    # Store for later use
+    all_polygon_gdfs[size_name] = gdf_polygons.copy()
 
-# Verify areas
-gdf_utm_temp = gdf_polygons.to_crs('EPSG:32632')
-areas_km2 = gdf_utm_temp.geometry.area / 1_000_000
-print(f"\nCreated {len(gdf_polygons)} polygons")
-print(f"Area verification: {areas_km2.mean():.2f} km² (all should be 25 km²)")
-
-# Save polygon shapefile
-output_polygons = "Risikofaktoren\DataPreperation\create_shapes_and_test_data\output\Erdrutsche213_with_random_5x5km.shp"
-gdf_polygons.to_file(output_polygons)
-print(f"\n✓ Saved polygon shapefile to: {output_polygons}")
+# Use 5x5km polygons as the main reference for subsequent steps
+gdf_polygons = all_polygon_gdfs["5x5km"]
 
 # ============================================================================
 # STEP 2.5: EXPORT CSV FILES FOR BETTER OVERVIEW
@@ -165,7 +188,7 @@ print("STEP 2.5: EXPORTING CSV FILES")
 print("=" * 70)
 
 # Export point data to CSV
-output_points_csv = "Risikofaktoren\DataPreperation\create_shapes_and_test_data\output\Erdrutsche213_with_random_points.csv"
+output_points_csv = "Risikofaktoren\\DataPreperation\\create_shapes_and_test_data\\output\\Erdrutsche213_with_random_points.csv"
 gdf_combined_csv = gdf_combined.copy()
 # Add geometry coordinates as separate columns
 gdf_combined_csv['Longitude'] = gdf_combined_csv.geometry.x
@@ -177,26 +200,26 @@ print(f"\n✓ Saved point data CSV to: {output_points_csv}")
 print(f"  Columns: {list(gdf_combined_csv_export.columns)}")
 print(f"  Rows: {len(gdf_combined_csv_export)}")
 
-# Export polygon data to CSV with bounding box information
-output_polygons_csv = "Risikofaktoren\DataPreperation\create_shapes_and_test_data\output\Erdrutsche213_with_random_polygons.csv"
-gdf_polygons_csv = gdf_polygons.copy()
-# Add polygon center coordinates
-gdf_polygons_csv['Center_Longitude'] = gdf_polygons_csv.geometry.centroid.x
-gdf_polygons_csv['Center_Latitude'] = gdf_polygons_csv.geometry.centroid.y
-# Add bounding box coordinates
-gdf_polygons_csv['BBox_MinX'] = gdf_polygons_csv.geometry.bounds['minx']
-gdf_polygons_csv['BBox_MinY'] = gdf_polygons_csv.geometry.bounds['miny']
-gdf_polygons_csv['BBox_MaxX'] = gdf_polygons_csv.geometry.bounds['maxx']
-gdf_polygons_csv['BBox_MaxY'] = gdf_polygons_csv.geometry.bounds['maxy']
-# Calculate area in km²
-gdf_polygons_utm_temp = gdf_polygons_csv.to_crs('EPSG:32632')
-gdf_polygons_csv['Area_km2'] = gdf_polygons_utm_temp.geometry.area / 1_000_000
-# Drop geometry column for CSV
-gdf_polygons_csv_export = gdf_polygons_csv.drop(columns=['geometry'])
-gdf_polygons_csv_export.to_csv(output_polygons_csv, index=False, encoding='utf-8-sig')
-print(f"\n✓ Saved polygon data CSV to: {output_polygons_csv}")
-print(f"  Columns: {list(gdf_polygons_csv_export.columns)}")
-print(f"  Rows: {len(gdf_polygons_csv_export)}")
+# Export polygon data to CSV with bounding box information for all sizes
+for size_name in all_polygon_gdfs.keys():
+    output_polygons_csv = f"Risikofaktoren\\DataPreperation\\create_shapes_and_test_data\\output\\Erdrutsche213_with_random_polygons_{size_name}.csv"
+    gdf_polygons_csv = all_polygon_gdfs[size_name].copy()
+    # Add polygon center coordinates
+    gdf_polygons_csv['Center_Longitude'] = gdf_polygons_csv.geometry.centroid.x
+    gdf_polygons_csv['Center_Latitude'] = gdf_polygons_csv.geometry.centroid.y
+    # Add bounding box coordinates
+    gdf_polygons_csv['BBox_MinX'] = gdf_polygons_csv.geometry.bounds['minx']
+    gdf_polygons_csv['BBox_MinY'] = gdf_polygons_csv.geometry.bounds['miny']
+    gdf_polygons_csv['BBox_MaxX'] = gdf_polygons_csv.geometry.bounds['maxx']
+    gdf_polygons_csv['BBox_MaxY'] = gdf_polygons_csv.geometry.bounds['maxy']
+    # Calculate area in km²
+    gdf_polygons_utm_temp = gdf_polygons_csv.to_crs('EPSG:32632')
+    gdf_polygons_csv['Area_km2'] = gdf_polygons_utm_temp.geometry.area / 1_000_000
+    # Drop geometry column for CSV
+    gdf_polygons_csv_export = gdf_polygons_csv.drop(columns=['geometry'])
+    gdf_polygons_csv_export.to_csv(output_polygons_csv, index=False, encoding='utf-8-sig')
+    print(f"\n✓ Saved {size_name} polygon data CSV to: {output_polygons_csv}")
+    print(f"  Rows: {len(gdf_polygons_csv_export)}")
 
 # ============================================================================
 # STEP 3: VISUALIZE DATA WITH DIFFERENT COLORS FOR EACH MOVEMENT TYPE
@@ -288,7 +311,9 @@ for movement_c in sorted(gdf_combined['MOVEMENT_C'].unique()):
 
 print(f"\n✓ Files created:")
 print(f"  1. Point shapefile: Erdrutsche213_with_random.shp")
-print(f"  2. Polygon shapefile: Erdrutsche213_with_random_5x5km.shp")
-print(f"  3. Point data CSV: Erdrutsche213_with_random_points.csv")
-print(f"  4. Polygon data CSV: Erdrutsche213_with_random_polygons.csv")
+print(f"  2. Point data CSV: Erdrutsche213_with_random_points.csv")
+print(f"  Polygon shapefiles and CSVs for each size:")
+for size_name, _, _ in polygon_sizes:
+    print(f"    - Erdrutsche213_with_random_{size_name}.shp")
+    print(f"    - Erdrutsche213_with_random_polygons_{size_name}.csv")
 print("=" * 70)
