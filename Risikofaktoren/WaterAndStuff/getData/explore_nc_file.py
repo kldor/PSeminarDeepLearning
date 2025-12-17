@@ -6,6 +6,7 @@ import numpy as np
 
 # Open the NetCDF file
 file_path = "Risikofaktoren/WaterAndStuff/data/MERIDA_PREC_202206.nc"
+# file_path = "Risikofaktoren/WaterAndStuff/data/MERIDA_PREC_202403.nc"
 dataset = nc.Dataset(file_path, 'r')
 
 print("=" * 60)

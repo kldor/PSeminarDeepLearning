@@ -42,7 +42,8 @@ print(f"\nOriginal landslide data: {len(gdf_original)} points")
 print(f"Columns: {gdf_original.columns.tolist()}")
 
 # Parse dates and filter out rows before 2015-01-01
-gdf_original['Datum_parsed'] = pd.to_datetime(gdf_original['Datum'], errors='coerce')
+# Note: Dates are in DD/MM/YYYY format (European format), some with HH:MM, some without
+gdf_original['Datum_parsed'] = pd.to_datetime(gdf_original['Datum'], dayfirst=True, errors='coerce')
 gdf_original = gdf_original[gdf_original['Datum_parsed'] >= pd.to_datetime('2015-01-01')]
 print(f"After filtering for dates >= 2015-01-01: {len(gdf_original)} points")
 
