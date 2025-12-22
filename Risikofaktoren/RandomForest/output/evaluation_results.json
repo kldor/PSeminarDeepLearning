@@ -1,0 +1,740 @@
+{
+  "5x5km": {
+    "accuracy": 0.8392857142857143,
+    "precision": 0.6666666666666666,
+    "recall": 0.7142857142857143,
+    "f1_score": 0.6896551724137931,
+    "confusion_matrix": [
+      [
+        37,
+        5
+      ],
+      [
+        4,
+        10
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 15,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.15500564165194264
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10343710906108368
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.0826835512627232
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.07403004772060037
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.07137600975615023
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.0638286895230163
+      },
+      {
+        "feature": "Slope_5x5km_min",
+        "importance": 0.05974037811388583
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.05860317076128899
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.05301038176044852
+      },
+      {
+        "feature": "Slope_5x5km_avg",
+        "importance": 0.051311496441572034
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.05100691778430575
+      },
+      {
+        "feature": "Slope_5x5km_median",
+        "importance": 0.05026660572458827
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.04255560012432081
+      },
+      {
+        "feature": "Slope_5x5km_max",
+        "importance": 0.04199475919498718
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.041149641119086075
+      }
+    ]
+  },
+  "2x2km": {
+    "accuracy": 0.7678571428571429,
+    "precision": 0.5294117647058824,
+    "recall": 0.6428571428571429,
+    "f1_score": 0.5806451612903226,
+    "confusion_matrix": [
+      [
+        34,
+        8
+      ],
+      [
+        5,
+        9
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 17,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.16015322733340814
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10532471241039891
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.07636262619605959
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.0733888328444418
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.06936191029525186
+      },
+      {
+        "feature": "Slope_2x2km_min",
+        "importance": 0.06650304054112106
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.06477680095417787
+      },
+      {
+        "feature": "Slope_2x2km_avg",
+        "importance": 0.062091579266517885
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.056546629020948765
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.05011762440145958
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.04755003520014831
+      },
+      {
+        "feature": "Slope_2x2km_median",
+        "importance": 0.04687069769465223
+      },
+      {
+        "feature": "Slope_2x2km_max",
+        "importance": 0.04508776269501272
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.04104602360590063
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.03481849754050084
+      }
+    ]
+  },
+  "1x1km": {
+    "accuracy": 0.7857142857142857,
+    "precision": 0.5625,
+    "recall": 0.6428571428571429,
+    "f1_score": 0.6,
+    "confusion_matrix": [
+      [
+        35,
+        7
+      ],
+      [
+        5,
+        9
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 16,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.15769560085197593
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10824489769214944
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.0902671703011876
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.08009004185267424
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.07526188009704712
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.06566727894415234
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.060754325044157564
+      },
+      {
+        "feature": "Slope_1x1km_min",
+        "importance": 0.054023427994711944
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.05340188712951665
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.052611924562742315
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.047070176549515855
+      },
+      {
+        "feature": "Slope_1x1km_median",
+        "importance": 0.03939600772664318
+      },
+      {
+        "feature": "Slope_1x1km_max",
+        "importance": 0.039307278163993785
+      },
+      {
+        "feature": "Slope_1x1km_avg",
+        "importance": 0.038550677374251434
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.03765742571528058
+      }
+    ]
+  },
+  "500x500m": {
+    "accuracy": 0.8214285714285714,
+    "precision": 0.6428571428571429,
+    "recall": 0.6428571428571429,
+    "f1_score": 0.6428571428571429,
+    "confusion_matrix": [
+      [
+        37,
+        5
+      ],
+      [
+        5,
+        9
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 14,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.15723536803247312
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10431678973760193
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.08951651689410742
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.07183808231175486
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.07124289546302948
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.06746017206205292
+      },
+      {
+        "feature": "Slope_500x500m_min",
+        "importance": 0.06541913865079323
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.06437700100210363
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.05169380108713789
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.0506014387074246
+      },
+      {
+        "feature": "Slope_500x500m_avg",
+        "importance": 0.04747901699853696
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.04531997992753228
+      },
+      {
+        "feature": "Slope_500x500m_max",
+        "importance": 0.03972538667690028
+      },
+      {
+        "feature": "Slope_500x500m_median",
+        "importance": 0.03767352854594665
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.036100883902604956
+      }
+    ]
+  },
+  "250x250m": {
+    "accuracy": 0.8214285714285714,
+    "precision": 0.6666666666666666,
+    "recall": 0.5714285714285714,
+    "f1_score": 0.6153846153846154,
+    "confusion_matrix": [
+      [
+        38,
+        4
+      ],
+      [
+        6,
+        8
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 12,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.15191517447026096
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10413760747694341
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.088730479873334
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.07801065968037235
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.06829079977920453
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.06363706229673273
+      },
+      {
+        "feature": "Slope_250x250m_max",
+        "importance": 0.06326499568354482
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.06035213554156514
+      },
+      {
+        "feature": "Slope_250x250m_min",
+        "importance": 0.0555779951655226
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.048942936889537964
+      },
+      {
+        "feature": "Slope_250x250m_avg",
+        "importance": 0.047874441648592066
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.04657480731977137
+      },
+      {
+        "feature": "Slope_250x250m_median",
+        "importance": 0.04651556886518524
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.043138251612518226
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.03303708369691436
+      }
+    ]
+  },
+  "100x100m": {
+    "accuracy": 0.7857142857142857,
+    "precision": 0.5625,
+    "recall": 0.6428571428571429,
+    "f1_score": 0.6,
+    "confusion_matrix": [
+      [
+        35,
+        7
+      ],
+      [
+        5,
+        9
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 16,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.14927624312870186
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10656148446724086
+      },
+      {
+        "feature": "Slope_100x100m_min",
+        "importance": 0.09179143431328331
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.07372821479734501
+      },
+      {
+        "feature": "Slope_100x100m_max",
+        "importance": 0.07020945330859417
+      },
+      {
+        "feature": "Slope_100x100m_avg",
+        "importance": 0.06656018950673898
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.06158824235131168
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.06094488892053253
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.055155271557469285
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.05340661268066416
+      },
+      {
+        "feature": "Slope_100x100m_median",
+        "importance": 0.04861016080686268
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.04795008461433842
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.04332397342939181
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.038506552181220934
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.032387193936304355
+      }
+    ]
+  },
+  "50x50m": {
+    "accuracy": 0.7857142857142857,
+    "precision": 0.5833333333333334,
+    "recall": 0.5,
+    "f1_score": 0.5384615384615384,
+    "confusion_matrix": [
+      [
+        37,
+        5
+      ],
+      [
+        7,
+        7
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 12,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.1523985413316498
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.10322207770114401
+      },
+      {
+        "feature": "Slope_50x50m_min",
+        "importance": 0.07797572401352285
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.07648255265904146
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.0664786289330617
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.06577562509836059
+      },
+      {
+        "feature": "Slope_50x50m_max",
+        "importance": 0.063714830544147
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.06075878642301279
+      },
+      {
+        "feature": "Slope_50x50m_median",
+        "importance": 0.0548560438575063
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.05443980116600379
+      },
+      {
+        "feature": "Slope_50x50m_avg",
+        "importance": 0.05348222246893603
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.046868006324885754
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.045343227789731384
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.040660123546443924
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.037543808142552586
+      }
+    ]
+  },
+  "30x30m": {
+    "accuracy": 0.8035714285714286,
+    "precision": 0.6,
+    "recall": 0.6428571428571429,
+    "f1_score": 0.6206896551724138,
+    "confusion_matrix": [
+      [
+        36,
+        6
+      ],
+      [
+        5,
+        9
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 15,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.15110088926663007
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.09712245187048235
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.08272504502721988
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.07425925025688115
+      },
+      {
+        "feature": "Slope_30x30m_min",
+        "importance": 0.07115725255522594
+      },
+      {
+        "feature": "Slope_30x30m_max",
+        "importance": 0.0710644694428117
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.06809459106150427
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.06085350445404887
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.058429227029285505
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.05232223887110556
+      },
+      {
+        "feature": "Slope_30x30m_avg",
+        "importance": 0.04778602517150714
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.04363926480523973
+      },
+      {
+        "feature": "Slope_30x30m_median",
+        "importance": 0.0423353813267535
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.03975571668996917
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.039354692171335165
+      }
+    ]
+  },
+  "10x10m": {
+    "accuracy": 0.7857142857142857,
+    "precision": 0.5833333333333334,
+    "recall": 0.5,
+    "f1_score": 0.5384615384615384,
+    "confusion_matrix": [
+      [
+        37,
+        5
+      ],
+      [
+        7,
+        7
+      ]
+    ],
+    "threshold": 0.35,
+    "n_test_samples": 56,
+    "n_landslides_test": 14,
+    "n_predicted_landslides": 12,
+    "feature_importance": [
+      {
+        "feature": "Rainfall_7d_mm",
+        "importance": 0.1662894227227086
+      },
+      {
+        "feature": "Rainfall_14d_mm",
+        "importance": 0.1134129594112967
+      },
+      {
+        "feature": "Rainfall_21d_mm",
+        "importance": 0.09320925588435694
+      },
+      {
+        "feature": "GroundTemperature_K",
+        "importance": 0.08130537173370588
+      },
+      {
+        "feature": "Temperature_700hPa_K",
+        "importance": 0.07540325210606921
+      },
+      {
+        "feature": "Temperature_850hPa_K",
+        "importance": 0.07287167171265477
+      },
+      {
+        "feature": "SoilMoisture_1.5m",
+        "importance": 0.0648116302140369
+      },
+      {
+        "feature": "Temperature_500hPa_K",
+        "importance": 0.05444430170864046
+      },
+      {
+        "feature": "SoilMoisture_0.7m",
+        "importance": 0.05242260424816624
+      },
+      {
+        "feature": "SoilMoisture_0.05m",
+        "importance": 0.04853235011361608
+      },
+      {
+        "feature": "SoilMoisture_0.25m",
+        "importance": 0.04394883000478725
+      },
+      {
+        "feature": "Slope_10x10m_avg",
+        "importance": 0.037994498399677584
+      },
+      {
+        "feature": "Slope_10x10m_min",
+        "importance": 0.032937997842842355
+      },
+      {
+        "feature": "Slope_10x10m_median",
+        "importance": 0.032079105698393014
+      },
+      {
+        "feature": "Slope_10x10m_max",
+        "importance": 0.0303367481990481
+      }
+    ]
+  }
+}

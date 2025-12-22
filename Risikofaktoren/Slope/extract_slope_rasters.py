@@ -1,8 +1,10 @@
 """
-Extract slope raster data for each 5x5km polygon.
+Extract slope raster data for multiple polygon sizes.
 
 This script clips the slope raster for each polygon and saves individual 
 raster files. Polygons with more than 5% NoData are excluded.
+
+Polygon sizes: 5x5km, 2x2km, 1x1km, 500x500m, 250x250m, 100x100m, 50x50m, 30x30m, 10x10m
 """
 
 import rasterio
@@ -186,10 +188,13 @@ def main():
     raster_path = "Risikofaktoren/Slope/Input/slope_10m_UTM.tif"
     base_polygon_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output"
     base_output_dir = "Risikofaktoren/Slope/Output"
-    
+     
     # Define polygon sizes to process
-    polygon_sizes = ["5x5km", "2x2km", "1x1km", "500x500m"]
-    
+    polygon_sizes = [
+        "5x5km", "2x2km", "1x1km", "500x500m",
+        "250x250m", "100x100m", "50x50m", "30x30m", "10x10m"
+    ]
+   
     all_results = {}
     
     for size_name in polygon_sizes:
@@ -209,11 +214,27 @@ def main():
         # Create output directory
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
+        # Determine NoData threshold based on polygon size
+        # Very small polygons have few pixels, so they need higher thresholds
+        if "10x10m" in size_name:
+            max_nodata_pct = 76.0
+        elif "30x30m" in size_name:
+            max_nodata_pct = 50.0
+        elif "50x50m" in size_name:
+            max_nodata_pct = 31.0
+        elif any(small_size in size_name for small_size in ["250x250m", "100x100m"]):
+            max_nodata_pct = 25.0
+        else:
+            # For larger polygons (>=500m), use 5% threshold
+            max_nodata_pct = 5.0
+        
+        print(f"Using NoData threshold: {max_nodata_pct}%")
+        
         # Load data
         raster, gdf = load_data(raster_path, polygon_shapefile_path)
         
         # Extract rasters
-        results = extract_all_slope_rasters(raster, gdf, output_dir, max_nodata_pct=5.0)
+        results = extract_all_slope_rasters(raster, gdf, output_dir, max_nodata_pct=max_nodata_pct)
         
         # Print summary
         print_summary(results)

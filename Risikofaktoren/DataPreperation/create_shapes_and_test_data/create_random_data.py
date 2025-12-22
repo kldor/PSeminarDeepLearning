@@ -4,7 +4,7 @@ Landslide Data Processing Script
 This script performs three main tasks:
 1. Generates random negative samples (non-landslide locations)
 2. Creates square polygons of multiple sizes around all points:
-   - 5x5 km, 2x2 km, 1x1 km, 500x500 m
+   - 5x5 km, 2x2 km, 1x1 km, 500x500 m, 250x250 m, 100x100 m, 50x50 m, 30x30 m, 10x10 m
 3. Visualizes the results with different colors for each movement type
 
 Input: Erdrutsche213.shp (landslide point data)
@@ -14,6 +14,11 @@ Output:
   - Erdrutsche213_with_random_2x2km.shp (2x2 km polygons)
   - Erdrutsche213_with_random_1x1km.shp (1x1 km polygons)
   - Erdrutsche213_with_random_500x500m.shp (500x500 m polygons)
+  - Erdrutsche213_with_random_250x250m.shp (250x250 m polygons)
+  - Erdrutsche213_with_random_100x100m.shp (100x100 m polygons)
+  - Erdrutsche213_with_random_50x50m.shp (50x50 m polygons)
+  - Erdrutsche213_with_random_30x30m.shp (30x30 m polygons)
+  - Erdrutsche213_with_random_10x10m.shp (10x10 m polygons)
   - CSV files for points and all polygon sizes
 """
 
@@ -141,6 +146,11 @@ polygon_sizes = [
     ("2x2km", 1000, 4.0),       # 2km x 2km = 4 km²
     ("1x1km", 500, 1.0),        # 1km x 1km = 1 km²
     ("500x500m", 250, 0.25),    # 500m x 500m = 0.25 km²
+    ("250x250m", 125, 0.0625),  # 250m x 250m = 0.0625 km²
+    ("100x100m", 50, 0.01),     # 100m x 100m = 0.01 km²
+    ("50x50m", 25, 0.0025),     # 50m x 50m = 0.0025 km²
+    ("30x30m", 15, 0.0009),     # 30m x 30m = 0.0009 km²
+    ("10x10m", 5, 0.0001),      # 10m x 10m = 0.0001 km²
 ]
 
 def create_square(point, distance):

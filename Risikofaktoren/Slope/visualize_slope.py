@@ -114,7 +114,7 @@ def visualize_slope_with_points(slope_dataset, slope_data, gdf):
 
 
 def visualize_slope_with_polygons(slope_dataset, slope_data, gdf_points, gdf_polygons):
-    """Visualize slope raster with 5x5km polygons and points overlaid."""
+    """Visualize slope raster with 250x250m polygons and points overlaid."""
     fig, ax = plt.subplots(figsize=(16, 14))
     
     # Custom colormap for slope
@@ -218,7 +218,7 @@ def main():
     # Paths
     raster_path = "Risikofaktoren/Slope/Input/slope_10m_UTM.tif"
     shapefile_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output/Erdrutsche213_with_random.shp"
-    polygon_shapefile_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output/Erdrutsche213_with_random_5x5km.shp"
+    polygon_shapefile_path = "Risikofaktoren/DataPreperation/create_shapes_and_test_data/output/Erdrutsche213_with_random_250x250m.shp"
     output_dir = "Risikofaktoren/Slope/Output"
     
     # Ensure output directory exists
