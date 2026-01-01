@@ -1,0 +1,8 @@
+WaterAndStuff/data/*
+SoilMoisture/data/*
+Temperature/data/*
+Landslides/data/*
+GroundTemperature/data/*
+Slope/input/*
+Slope/output/*
+.env
